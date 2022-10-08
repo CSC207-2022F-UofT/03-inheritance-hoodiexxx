@@ -4,6 +4,8 @@
  * the TODOs we have left you. You may find the readings in chapter
  * 1. Introduction to Java helpful.
  */
+//A class contains a constructor to initialize instance variables in Java. This constructor is called
+// when the class object is created
 
 public abstract class Bag {
     /*
@@ -13,7 +15,10 @@ public abstract class Bag {
      *       - an int named capacity
      *       - an array of Strings named contents
      */
-
+    String color;
+    int numberOfContents;
+    int capacity;
+    String[] contents;
 
 
 
@@ -26,7 +31,13 @@ public abstract class Bag {
      * be empty (e.g. numberOfContents is 0 and an empty String array for
      * its contents.)
      */
-
+    public Bag(String col, int cap)
+    {
+        this.color = col;
+        this.capacity = cap;
+        this.numberOfContents = 0;
+        contents = new String[this.capacity];
+    }
 
 
 
@@ -37,15 +48,29 @@ public abstract class Bag {
      *           - getNumberOfContents
      *           - getCapacity
      */
+    public String getColor()
+    {
+        return this.color;
+    }
 
+    public int getNumberOfContents()
+    {
+        return this.numberOfContents;
+    }
 
-
+    public int getCapacity()
+    {
+        return this.capacity;
+    }
 
     /*
      * TODO: Create a setter function called setColor which sets the
      *       color of this bag to the given color.
      */
-
+    public void setColor(String c)
+    {
+        this.color = c;
+    }
 
 
 
@@ -60,7 +85,19 @@ public abstract class Bag {
      *       This method should return true if the item was added
      *       and false otherwise.
      */
+    public Boolean addItem(String item) {
+        if (this.numberOfContents < this.capacity)
+        {
+            contents[numberOfContents] = item;
+            this.numberOfContents++;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
+    }
 
 
 
@@ -75,7 +112,32 @@ public abstract class Bag {
      *
      * @return
      */
-
+    public String popItem()
+    {
+        if (this.contents[0] == null)
+        {
+            return null;
+        }
+        if(this.contents[this.capacity - 1] != null)
+        {
+           String s = this.contents[this.capacity - 1];
+           this.contents[this.capacity-1] = null;
+           this.numberOfContents --;
+           return s;
+        }
+        String lastNonNull = "";
+        for (int i=0; i<this.capacity; i++)
+        {
+            if(this.contents[i] == null)
+            {
+                lastNonNull = this.contents[i-1];
+                this.contents[i-1] = null;
+                break;
+            }
+        }
+        this.numberOfContents --;
+        return lastNonNull;
+    }
 
 
 
@@ -86,8 +148,7 @@ public abstract class Bag {
      * @param n the amount to increase this Bag's capacity by
      */
     public void increaseCapacity(int n) {
-        // TODO: Implement this method.
-
+        this.capacity += n;
     }
 
     /**
